@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-login-jwt",
-  "version": "0.0.0.1",
+  "version": "0.1.1",
   "description": "Example plugin for login with jwt",
   "main": "none",
   "scripts": {
