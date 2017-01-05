@@ -1,37 +1,43 @@
-// 'use strict';
+'use strict';
 
+var meta = module.parent.require('./meta');
+var user = module.parent.require('./user');
 
+var winston = require('winston');
 
-// var plugin = {};
+var plugin = {};
 
-// plugin.init = function (params, callback)	{
-// 	winston.add(winston.transports.File, {
-// 		level: 'debug',
-// 		json: false,
-// 		filename: 'my.log'
-// 	});
+plugin.init = function (params, callback)	{
+	console.log('ddd')
+	winston.add(winston.transports.File, {
+		level: 'debug',
+		json: false,
+		filename: 'my.log'
+	});
 
-// 	winston.info('This is info');
-// 	winston.error('This is error');
-// }
+	winston.info('This is info');
+	winston.error('This is error');
+}
 
-(function (module)	{
-	'use strict';
+module.exports = plugin;
 
-	var meta = module.parent.require('./meta');
-	var user = module.parent.require('./user');
+// (function (module)	{
+// 	'use strict';
 
-	var winston = require('winston');
+// 	var meta = module.parent.require('./meta');
+// 	var user = module.parent.require('./user');
 
-	var init = function (params, callback)	{
-		winston.add(winston.transports.File, {
-			level: 'debug',
-			json: false,
-			filename: 'my.log'
-		});
+// 	var winston = require('winston');
 
-		winston.info('This is info');
-		winston.error('This is error');		
-	}
+// 	var init = function (params, callback)	{
+// 		winston.add(winston.transports.File, {
+// 			level: 'debug',
+// 			json: false,
+// 			filename: 'my.log'
+// 		});
 
-}(module));
+// 		winston.info('This is info');
+// 		winston.error('This is error');		
+// 	}
+
+// }(module));
