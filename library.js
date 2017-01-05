@@ -8,7 +8,8 @@ var winston = require('winston');
 var plugin = {};
 
 plugin.init = function (params, callback)	{
-	console.log('ddd')
+	console.log(arguments)
+	console.log(params, callback);
 	winston.add(winston.transports.File, {
 		level: 'debug',
 		json: false,
