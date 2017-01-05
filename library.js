@@ -17,6 +17,12 @@ plugin.init = function (params, callback)	{
 
 	winston.info('This is info');
 	winston.error('This is error');
+};
+
+plugin.loggedin = function (params, callback)	{
+	console.log('normal console');
+
+	winston.info('winston logged in');
 }
 
 module.exports = plugin;
