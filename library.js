@@ -24,7 +24,17 @@ plugin.loggedin = function (params, callback)	{
 	console.log('normal console');
 
 	winston.info('winston logged in');
-}
+};
+
+plugin.checkJwt = function (req, res, next)	{
+	console.log(req, res, next);
+	console.log('check jwt');
+};
+
+plugin.loggedOut = function (data, callback)	{
+	console.log(data);
+	console.log('logged Out');
+};
 
 module.exports = plugin;
 
