@@ -5,5 +5,8 @@
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "action:user.loggedin", "method": "loggedin" },
-	]
+	],
+	"scripts": [
+		"./scripts.js"
+	],
 }
