@@ -28,7 +28,7 @@ plugin.loggedin = function (params, callback)	{
 	// winston.info('winston logged in');
 };
 
-plugin.checkJwt = function (req, res, next)	{
+plugin.addMiddleware = function (req, res, next)	{
 	console.log(req, res, next);
 	console.log('check jwt');
 

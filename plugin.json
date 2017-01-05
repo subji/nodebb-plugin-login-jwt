@@ -3,7 +3,7 @@
 	"url": "https://github.com/subji/nodebb-plugin-login-jwt.git",
 	"library": "./library.js",
 	"hooks": [
-		{ "hook": "filter:router.page", "method": "checkJwt" },
+		{ "hook": "filter:router.page", "method": "addMiddleware" },
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "action:user.loggedin", "method": "loggedin" },
 		{ "hook": "static:user.loggedOut", "method": "loggedOut" }
