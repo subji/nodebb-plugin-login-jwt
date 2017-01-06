@@ -2,6 +2,7 @@
 
 var meta = module.parent.require('./meta');
 var user = module.parent.require('./user');
+var db   = module.parent.require('./database');
 
 var winston = require('winston');
 var jwt = require('jsonwebtoken');
@@ -31,12 +32,11 @@ plugin.loggedin = function (params, callback)	{
 };
 
 plugin.addMiddleware = function (req, res, next)	{
-	// console.log(req, res);
-	console.log('check jwt');
-
 	var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaXNMb2dpbiI6IlllcyJ9.L8r4Ibbp6N30VoTpRL_U3rouXdOK4IflGbeOOjlCAew', 'secret');
 
 	console.log(decoded);
+
+	console.log(db, meta, user);
 
 	next();
 };
