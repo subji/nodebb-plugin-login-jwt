@@ -40,7 +40,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	});
 
 	user.create({
-		username: decoded.username,
+		username: 'test',
 		// email:'',
 		// picture:'',
 
@@ -49,7 +49,7 @@ plugin.addMiddleware = function (req, res, next)	{
 			console.log('Error: ', err);
 		}
 
-		console.log(uid);
+		console.log('uid: ', uid);
 	});
 
 	// if (!isExist)	{
