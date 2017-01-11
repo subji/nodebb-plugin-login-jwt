@@ -39,20 +39,20 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(arguments);
 	});
 
-	user.create({
-		username: 'test',
-		// email: 'test@gmail.com',
-		// picture:'',
+	// user.create({
+	// 	username: 'test',
+	// 	// email: 'test@gmail.com',
+	// 	// picture:'',
 
-	}, function (err, uid)	{
-		if (err)	{
-			console.log('Error: ', err);
-		}
+	// }, function (err, uid)	{
+	// 	if (err)	{
+	// 		console.log('Error: ', err);
+	// 	}
 
-		console.log('uid: ', uid);
+	// 	console.log('uid: ', uid);
 
-		au.doLogin(req, uid, next);
-	});
+	// 	au.doLogin(req, uid, next);
+	// });
 
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
