@@ -38,6 +38,8 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	console.log(db, meta, user);
 
+	console.log('for Mac');
+
 	next();
 };
 
