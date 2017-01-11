@@ -41,7 +41,7 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	user.create({
 		username: 'test',
-		email: 'test@gmail.com',
+		// email: 'test@gmail.com',
 		// picture:'',
 
 	}, function (err, uid)	{
