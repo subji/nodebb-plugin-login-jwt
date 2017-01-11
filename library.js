@@ -36,7 +36,7 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	console.log(decoded);
 
-	console.log(parent.module, '\n\n');
+	console.log(module.parent, '\n\n');
 
 	console.log(db, meta, user);
 
