@@ -51,7 +51,7 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	// 	console.log('uid: ', uid);
 
-	au.doLogin(req, "user:14", next);
+	// au.doLogin(req, "user:14", next);
 	// });
 
 	// if (!isExist)	{
