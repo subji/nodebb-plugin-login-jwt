@@ -35,7 +35,9 @@ plugin.loggedin = function (params, callback)	{
 
 plugin.addMiddleware = function (req, res, next)	{
 	var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaXNMb2dpbiI6IlllcyJ9.L8r4Ibbp6N30VoTpRL_U3rouXdOK4IflGbeOOjlCAew', 'secret');
-	var isExist = db.getObjectField(decoded.username, 'username');
+	var isExist = db.getObjectField(decoded.username, 'username', function ()	{
+		console.log(arguments);
+	});
 
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
