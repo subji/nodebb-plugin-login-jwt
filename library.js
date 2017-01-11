@@ -39,6 +39,19 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(arguments);
 	});
 
+	user.create({
+		username: decoded.username,
+		// email:'',
+		// picture:'',
+
+	}, function (err, uid)	{
+		if (err)	{
+			return callback(err);
+		}
+
+		console.log(uid);
+	});
+
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
 	// }
