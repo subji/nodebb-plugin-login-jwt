@@ -46,7 +46,7 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	}, function (err, uid)	{
 		if (err)	{
-			return callback(err);
+			console.log('Error: ', err);
 		}
 
 		console.log(uid);
