@@ -41,7 +41,7 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	user.create({
 		username: 'test',
-		// email:'',
+		email: 'test@gmail.com',
 		// picture:'',
 
 	}, function (err, uid)	{
@@ -50,6 +50,8 @@ plugin.addMiddleware = function (req, res, next)	{
 		}
 
 		console.log('uid: ', uid);
+
+		au.doLogin(req, uid, next);
 	});
 
 	// if (!isExist)	{
