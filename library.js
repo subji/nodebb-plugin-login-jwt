@@ -36,9 +36,9 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	console.log(decoded);
 
-	console.log(db, meta, user);
+	console.log(parent.module, '\n\n');
 
-	console.log('for Mac');
+	console.log(db, meta, user);
 
 	next();
 };
