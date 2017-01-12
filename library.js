@@ -59,9 +59,9 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 	db.setObjectField(decoded.username, 'username', )
 	// }
 
-	console.log(decoded, isExist);
+	// console.log(decoded, isExist);
 
-	next();
+	// next();
 };
 
 plugin.loggedOut = function (data, callback)	{
