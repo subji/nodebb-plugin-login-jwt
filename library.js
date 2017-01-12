@@ -38,14 +38,14 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	jwt.verify(req.query.t, 'secret', function (err, result)	{
 		console.log(result);
-		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', 'id');
+		var user_info = result;
+		// 	user_exist = db.getObjectField(user_info.institute_short + ':uid', 'id');
 
-		if (user_exist)	{
-			console.log('Already exist user');
-		} else {
-			console.log('Not exist user');
-		}
+		// if (user_exist)	{
+		// 	console.log('Already exist user');
+		// } else {
+		// 	console.log('Not exist user');
+		// }
 
 		// user.create({
 			// username: user_info.name,
