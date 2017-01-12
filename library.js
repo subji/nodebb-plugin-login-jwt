@@ -39,11 +39,11 @@ plugin.addMiddleware = function (req, res, next)	{
 	jwt.verify(req.query.t, 'secret', function (err, result)	{
 		console.log(result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', 'id', function ()	{
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id, function ()	{
 				console.log('user_exist: ', arguments);
 			});
 
-		console.log(db.getObjectField.apply(null, [user_info.institute_short + ':uid', 'id']))
+		console.log(db.getObjectField.apply(null, [user_info.institute_short + ':uid', user_info.id]))
 
 		if (user_exist)	{
 			console.log('Already exist user');
