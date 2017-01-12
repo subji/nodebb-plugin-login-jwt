@@ -34,31 +34,34 @@ plugin.loggedin = function (params, callback)	{
 };
 
 plugin.addMiddleware = function (req, res, next)	{
-	var decoded = jwt.verify(req.query.t, 'secret', function (err, result)	{
+	console.log(req);
+
+	jwt.verify(req.query.t, 'secret', function (err, result)	{
 		console.log(result);
+		var user_info = result;
+
+		// user.create({
+			// username: user_info.name,
+			// id: user_info.id,
+			// email: user_info.id,
+			// institude_short: user_info.institude_short
+		// }, function (err, uid)	{
+			// if (err)	{
+			// 	console.error('Create user error: ', err);
+				
+			// 	return;
+			// }
+
+			// db.setObjectField(user_info.institude_short + ':uid', user_info.id, uid);
+		// });
 
 		next();
-		});
+	});
 	// var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaXNMb2dpbiI6IlllcyJ9.L8r4Ibbp6N30VoTpRL_U3rouXdOK4IflGbeOOjlCAew', 'secret');
 	// var isExist = db.getObjectField(decoded.username, 'username', function ()	{
 	// 	console.log(arguments);
 	// });
 
-
-	// console.log('reqsest : ', req)
-	// console.log('\n', req.query.t, '\ndecoded : ', decoded);
-
-	// user.create({
-	// 	username: 'test',
-	// 	// email: 'test@gmail.com',
-	// 	// picture:'',
-
-	// }, function (err, uid)	{
-	// 	if (err)	{
-	// 		console.log('Error: ', err);
-	// 	}
-
-	// 	console.log('uid: ', uid);
 
 	// req.uid = 14;
 	// au.doLogin(req, 14, next);
