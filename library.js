@@ -34,7 +34,7 @@ plugin.loggedin = function (params, callback)	{
 };
 
 plugin.addMiddleware = function (req, res, next)	{
-	// console.log(req);
+	console.log(req);
 
 	jwt.verify(req.query.t, 'secret', function (err, result)	{
 		console.log(result);
