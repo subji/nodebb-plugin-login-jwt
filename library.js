@@ -13,17 +13,9 @@ var plugin = {};
 
 plugin.init = function (params, callback)	{
 	var mw = params.middleware;
+	
 	console.log('init');
-	// console.log(arguments)
-	// console.log(params, callback);
-	// winston.add(winston.transports.File, {
-	// 	level: 'debug',
-	// 	json: false,
-	// 	filename: 'my.log'
-	// });
 
-	// winston.info('This is info');
-	// winston.error('This is error');
 	callback();
 };
 
@@ -39,6 +31,8 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(arguments);
 	});
 
+	console.log(req.user, req.session)
+
 	// user.create({
 	// 	username: 'test',
 	// 	// email: 'test@gmail.com',
@@ -50,7 +44,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 	}
 
 	// 	console.log('uid: ', uid);
-
+	// 자동 로그인 하는 방법.
 	// req.uid = 14;
 	// au.doLogin(req, 14, next);
 	// });
@@ -66,24 +60,3 @@ plugin.loggedOut = function (data, callback)	{
 };
 
 module.exports = plugin;
-
-// (function (module)	{
-// 	'use strict';
-
-// 	var meta = module.parent.require('./meta');
-// 	var user = module.parent.require('./user');
-
-// 	var winston = require('winston');
-
-// 	var init = function (params, callback)	{
-// 		winston.add(winston.transports.File, {
-// 			level: 'debug',
-// 			json: false,
-// 			filename: 'my.log'
-// 		});
-
-// 		winston.info('This is info');
-// 		winston.error('This is error');		
-// 	}
-
-// }(module));
