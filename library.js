@@ -39,7 +39,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(arguments);
 	});
 
-	// console.log(req.user, req.session);
+	console.log(req.user, req.session);
 
 	// user.create({
 	// 	username: 'test',
@@ -60,6 +60,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
 	// }
+	next();
 };
 
 plugin.loggedOut = function (data, callback)	{
