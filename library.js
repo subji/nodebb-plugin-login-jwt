@@ -40,7 +40,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(arguments);
 	});
 
-	console.log(req, '\n', req.query.t);
+	console.log('\n', req.query.t, decoded);
 
 	// user.create({
 	// 	username: 'test',
