@@ -51,17 +51,13 @@ plugin.addMiddleware = function (req, res, next)	{
 
 	// 	console.log('uid: ', uid);
 
-	req.uid = 14;
-	au.doLogin(req, 14, next);
+	// req.uid = 14;
+	// au.doLogin(req, 14, next);
 	// });
 
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
 	// }
-
-	// console.log(decoded, isExist);
-
-	// next();
 };
 
 plugin.loggedOut = function (data, callback)	{
