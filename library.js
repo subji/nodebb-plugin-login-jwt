@@ -40,8 +40,10 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log(result);
 		var user_info = result,
 			user_exist = db.getObjectField(user_info.institute_short + ':uid', 'id', function ()	{
-				console.log(arguments);
+				console.log('user_exist: ', arguments);
 			});
+
+		console.log(db.getObjectField.apply(null, [user_info.institute_short + ':uid', 'id']))
 
 		if (user_exist)	{
 			console.log('Already exist user');
