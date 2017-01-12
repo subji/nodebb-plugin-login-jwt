@@ -6,7 +6,6 @@
 		{ "hook": "filter:router.page", "method": "addMiddleware" },
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "action:user.loggedin", "method": "loggedin" }
-		// { "hook": "static:user.loggedOut", "method": "loggedOut" }
 	],
 	"scripts": [
 		"./scripts.js"
