@@ -39,7 +39,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	jwt.verify(req.query.t, 'secret', function (err, result)	{
 		console.log(result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institude_short + ':uid', 'id');
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', 'id');
 
 		if (user_exist)	{
 			console.log('Already exist user');
@@ -51,7 +51,7 @@ plugin.addMiddleware = function (req, res, next)	{
 			// username: user_info.name,
 			// id: user_info.id,
 			// email: user_info.id,
-			// institude_short: user_info.institude_short
+			// institude_short: user_info.institute_short
 		// }, function (err, uid)	{
 			// if (err)	{
 			// 	console.error('Create user error: ', err);
@@ -59,7 +59,7 @@ plugin.addMiddleware = function (req, res, next)	{
 			// 	return;
 			// }
 
-			// db.setObjectField(user_info.institude_short + ':uid', 'id', uid);
+			// db.setObjectField(user_info.institute_short + ':uid', 'id', uid);
 		// });
 
 		next();
