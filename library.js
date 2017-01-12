@@ -40,9 +40,9 @@ plugin.addMiddleware = function (req, res, next)	{
 		next();
 		});
 	// var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaXNMb2dpbiI6IlllcyJ9.L8r4Ibbp6N30VoTpRL_U3rouXdOK4IflGbeOOjlCAew', 'secret');
-	var isExist = db.getObjectField(decoded.username, 'username', function ()	{
-		console.log(arguments);
-	});
+	// var isExist = db.getObjectField(decoded.username, 'username', function ()	{
+	// 	console.log(arguments);
+	// });
 
 
 	// console.log('reqsest : ', req)
