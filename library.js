@@ -34,15 +34,19 @@ plugin.loggedin = function (params, callback)	{
 };
 
 plugin.addMiddleware = function (req, res, next)	{
-	var decoded = jwt.verify(req.query.t, 'secret');
+	var decoded = jwt.verify(req.query.t, 'secret', function (err, result)	{
+		console.log(result);
+
+		next();
+		});
 	// var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaXNMb2dpbiI6IlllcyJ9.L8r4Ibbp6N30VoTpRL_U3rouXdOK4IflGbeOOjlCAew', 'secret');
 	var isExist = db.getObjectField(decoded.username, 'username', function ()	{
 		console.log(arguments);
 	});
 
 
-	console.log('reqsest : ', req)
-	console.log('\n', req.query.t, '\ndecoded : ', decoded);
+	// console.log('reqsest : ', req)
+	// console.log('\n', req.query.t, '\ndecoded : ', decoded);
 
 	// user.create({
 	// 	username: 'test',
@@ -63,7 +67,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// if (!isExist)	{
 	// 	db.setObjectField(decoded.username, 'username', )
 	// }
-	next();
+	
 };
 
 plugin.loggedOut = function (data, callback)	{
