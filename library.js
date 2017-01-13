@@ -42,20 +42,22 @@ plugin.addMiddleware = function (req, res, next)	{
 		var user_info = result,
 			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id, function (data)	{
 				console.log('User exist: ', data);
-				return null;
+				return data;
 			});
 
 		if (user_exist)	{
 			console.log('Already exist user');
 		} else {
+			var test = user_info.id.replace('test', 'test101');
+
 			user.create({
 			username: user_info.name,
-			id: user_info.id,
-			email: user_info.id,
+			id: test,
+			email: test,
 			institude_short: user_info.institute_short
 			}, function (err, uid)	{
 				if (err)	{
-					return console.error('Create user error: ', err);
+					return console.log('Create user error: ', err);
 				}
 
 				console.log('Create uid: ', uid);
