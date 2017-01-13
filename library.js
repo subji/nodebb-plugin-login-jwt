@@ -40,13 +40,14 @@ plugin.addMiddleware = function (req, res, next)	{
 		}
 		console.log('JWT Verify result: ', result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (data)	{
-				console.log('User exist: ', data, arguments);
-				return data;
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, d)	{
+				console.log('User exist: ', data);
+				return d;
 			});
 
 		if (user_exist)	{
 			console.log('Already exist user');
+			au.doLogin(req, user_exist, next);
 		} else {
 			var test = user_info.id.replace('test', 'test102');
 
@@ -63,20 +64,11 @@ plugin.addMiddleware = function (req, res, next)	{
 				console.log('Success create uid: ', uid);
 
 				db.setObjectField(user_info.institute_short + ':uid', test, uid);
+
+				au.doLogin(req, uid, next);
 			});
 		}
-
-		next();
 	});
-
-	// req.uid = 14;
-	// au.doLogin(req, 14, next);
-	// });
-
-	// if (!isExist)	{
-	// 	db.setObjectField(decoded.username, 'username', )
-	// }
-	
 };
 
 plugin.loggedOut = function (data, callback)	{
