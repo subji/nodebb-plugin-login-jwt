@@ -37,10 +37,11 @@ plugin.loggedin = function (params, callback)	{
 // 그러므로 함수 첫줄에 세션 확인을 하는 구문을 만들어 같은 세션일 경우 유저 유효성 검사를 넘어가도록 한다.
 plugin.addMiddleware = function (req, res, next)	{
 	console.log(req.user);
-	
+	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
 	if (hasSession)	{
+		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
 		jwt.verify(req.query.t, 'secret', function (err, user_info)	{
@@ -73,7 +74,8 @@ plugin.addMiddleware = function (req, res, next)	{
 						if (err)	{
 							return console.log('Create user error: ', err);
 						}
-
+						// TODO.
+						// 이메일이 중복되었을 경우, 에러가 발생하는데 이를 방지할 대책을 세워야 한다.
 						console.log('Success create uid: ', uid);
 
 						db.setObjectField(user_info.institute_short + ':uid', test, uid);
