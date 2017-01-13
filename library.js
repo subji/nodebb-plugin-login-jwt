@@ -11,6 +11,12 @@ var jwt = require('jsonwebtoken');
 
 var plugin = {};
 
+plugin.sessions = {};
+
+plugin.session.checkSession => () {
+	console.log('Check Session function');
+}
+
 plugin.init = function (params, callback)	{
 	var mw = params.middleware;
 	console.log('init');
@@ -37,6 +43,7 @@ plugin.loggedin = function (params, callback)	{
 // 그러므로 함수 첫줄에 세션 확인을 하는 구문을 만들어 같은 세션일 경우 유저 유효성 검사를 넘어가도록 한다.
 plugin.addMiddleware = function (req, res, next)	{
 	console.log(req.session);
+	plugin.sessions.checkSession();
 
 	jwt.verify(req.query.t, 'secret', function (err, user_info)	{
 		if (err)	{
