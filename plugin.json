@@ -4,7 +4,7 @@
 	"library": "./library.js",
 	"hooks": [
 		{ "hook": "filter:router.page", "method": "addMiddleware" },
-		{ "hook": "static:user.loggedOut", "method": "logout" }
+		{ "hook": "static:user.loggedOut", "method": "loggedOut" }
 	],
 	"scripts": [
 		"./scripts.js"
