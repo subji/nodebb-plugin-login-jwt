@@ -18,7 +18,9 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	if (hasSession)	{
+	plugin.session = hasSession;
+
+	if (plugin.session)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
@@ -35,7 +37,7 @@ plugin.addMiddleware = function (req, res, next)	{
 				}
 				
 				if (isExist)	{
-					console.log('Already exist user');
+					console.log('Exist user');
 					// 존재할 경우 로그인을 실행한다.
 					au.doLogin(req, isExist, next);
 				} else {
@@ -47,7 +49,7 @@ plugin.addMiddleware = function (req, res, next)	{
 					username: user_info.name,
 					id: test,
 					email: test,
-					institude_short: user_info.institute_short
+					institute_short: user_info.institute_short
 					}, function (err, uid)	{
 						if (err)	{
 							return console.log('Create user error: ', err);
@@ -64,11 +66,6 @@ plugin.addMiddleware = function (req, res, next)	{
 			});
 		});
 	}	
-};
-// 로그아웃 처리 함수.
-plugin.loggedOut = function (data, callback)	{
-	// console.log(data);
-	console.log('logged Out');
 };
 
 module.exports = plugin;

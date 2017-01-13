@@ -3,8 +3,7 @@
 	"url": "https://github.com/subji/nodebb-plugin-login-jwt.git",
 	"library": "./library.js",
 	"hooks": [
-		{ "hook": "filter:router.page", "method": "addMiddleware" },
-		{ "hook": "static:user.loggedOut", "method": "loggedOut" }
+		{ "hook": "filter:router.page", "method": "addMiddleware" }
 	],
 	"scripts": [
 		"./scripts.js"
