@@ -40,39 +40,35 @@ plugin.addMiddleware = function (req, res, next)	{
 		}
 		console.log('JWT Verify result: ', result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, d)	{
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, isExist)	{
 				if (err)	{
 					return console.log('User exist error: ', err);
 				}
-				console.log('User exist: ', d);
-				return d;
-			});
+				
+				if (isExist)	{
+					console.log('Already exist user');
+					au.doLogin(req, isExist, next);
+				} else {
+					var test = user_info.id.replace('test', 'test102');
 
-		console.log('Resulting of user exist: ', user_exist);
+					user.create({
+					username: user_info.name,
+					id: test,
+					email: test,
+					institude_short: user_info.institute_short
+					}, function (err, uid)	{
+						if (err)	{
+							return console.log('Create user error: ', err);
+						}
 
-		if (user_exist)	{
-			console.log('Already exist user');
-			au.doLogin(req, user_exist, next);
-		} else {
-			var test = user_info.id.replace('test', 'test102');
+						console.log('Success create uid: ', uid);
 
-			user.create({
-			username: user_info.name,
-			id: test,
-			email: test,
-			institude_short: user_info.institute_short
-			}, function (err, uid)	{
-				if (err)	{
-					return console.log('Create user error: ', err);
+						db.setObjectField(user_info.institute_short + ':uid', test, uid);
+
+						au.doLogin(req, uid, next);
+					});
 				}
-
-				console.log('Success create uid: ', uid);
-
-				db.setObjectField(user_info.institute_short + ':uid', test, uid);
-
-				au.doLogin(req, uid, next);
 			});
-		}
 	});
 };
 
