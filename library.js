@@ -34,37 +34,34 @@ plugin.loggedin = function (params, callback)	{
 };
 
 plugin.addMiddleware = function (req, res, next)	{
-	// console.log(req);
-
 	jwt.verify(req.query.t, 'secret', function (err, result)	{
-		console.log(result);
+		if (err)	{
+			return console.log('JWT Verify error: ', err);
+		}
+		console.log('JWT Verify result: ', result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id, function ()	{
-				console.log('user_exist: ', arguments);
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id, function (data)	{
+				return data['0'];
 			});
-
-		console.log(db.getObjectField.apply(null, [user_info.institute_short + ':uid', user_info.id]))
 
 		if (user_exist)	{
 			console.log('Already exist user');
 		} else {
-			console.log('Not exist user');
+			user.create({
+			username: user_info.name,
+			id: user_info.id,
+			email: user_info.id,
+			institude_short: user_info.institute_short
+			}, function (err, uid)	{
+				if (err)	{
+					return console.error('Create user error: ', err);
+				}
+
+				console.log('Create uid: ', uid);
+
+				// db.setObjectField(user_info.institute_short + ':uid', 'id', uid);
+			});
 		}
-
-		// user.create({
-			// username: user_info.name,
-			// id: user_info.id,
-			// email: user_info.id,
-			// institude_short: user_info.institute_short
-		// }, function (err, uid)	{
-			// if (err)	{
-			// 	console.error('Create user error: ', err);
-				
-			// 	return;
-			// }
-
-			// db.setObjectField(user_info.institute_short + ':uid', 'id', uid);
-		// });
 
 		next();
 	});
