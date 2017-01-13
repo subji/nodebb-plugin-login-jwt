@@ -48,6 +48,8 @@ plugin.addMiddleware = function (req, res, next)	{
 				return d;
 			});
 
+		console.log('Resulting of user exist: ', user_exist);
+
 		if (user_exist)	{
 			console.log('Already exist user');
 			au.doLogin(req, user_exist, next);
