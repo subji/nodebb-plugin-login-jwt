@@ -68,7 +68,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	}	
 };
 
-plugin.loggedOut = function (data, callback)	{
+plugin.doLogout = function (data, callback)	{
 	console.log('logout: ', data);
 
 	data.logout();
