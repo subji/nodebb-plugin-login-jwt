@@ -41,7 +41,10 @@ plugin.addMiddleware = function (req, res, next)	{
 		console.log('JWT Verify result: ', result);
 		var user_info = result,
 			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, d)	{
-				console.log('User exist: ', data);
+				if (err)	{
+					return console.log('User exist error: ', err);
+				}
+				console.log('User exist: ', d);
 				return d;
 			});
 
