@@ -40,7 +40,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		}
 		console.log('JWT Verify result: ', result);
 		var user_info = result,
-			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test101'), function (data)	{
+			user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (data)	{
 				console.log('User exist: ', data);
 				return data;
 			});
@@ -48,7 +48,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		if (user_exist)	{
 			console.log('Already exist user');
 		} else {
-			var test = user_info.id.replace('test', 'test101');
+			var test = user_info.id.replace('test', 'test102');
 
 			user.create({
 			username: user_info.name,
