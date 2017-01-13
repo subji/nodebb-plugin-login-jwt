@@ -11,22 +11,6 @@ var jwt = require('jsonwebtoken');
 // 모듈 객체.
 var plugin = {};
 
-plugin.init = function (params, callback)	{
-	// var mw = params.middleware;
-	console.log('init');
-	// console.log(arguments)
-	// console.log(params, callback);
-	// winston.add(winston.transports.File, {
-	// 	level: 'debug',
-	// 	json: false,
-	// 	filename: 'my.log'
-	// });
-
-	// winston.info('This is info');
-	// winston.error('This is error');
-	// callback();
-};
-
 // 이 함수는 NodeBB 에서 어떤 동작 또는 페이지이동 때마다 호출되므로 계속해서 토큰을 받아오고 유저 유효성 검사를 할 것이다.
 // 그러므로 함수 첫줄에 세션 확인을 하는 구문을 만들어 같은 세션일 경우 유저 유효성 검사를 넘어가도록 한다.
 // 로그 처리를 윈스턴을 이용해서 다시 구성해야 할 것 같다.
