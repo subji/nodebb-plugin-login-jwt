@@ -21,6 +21,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	plugin.session = hasSession;
 
 	if (plugin.session)	{
+		console.log('is Session', plugin.session);
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
