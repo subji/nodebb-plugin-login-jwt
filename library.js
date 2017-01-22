@@ -18,6 +18,8 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
+	console.log(hasSession);
+
 	plugin.session = hasSession;
 
 	if (plugin.session)	{
@@ -70,7 +72,7 @@ plugin.addMiddleware = function (req, res, next)	{
 };
 
 plugin.doLogout = function (data, callback)	{
-	console.log('logout: ', data);
+	// console.log('logout: ', data);
 
 	callback();
 }
