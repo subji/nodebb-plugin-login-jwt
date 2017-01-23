@@ -18,7 +18,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	console.log(hasSession);
+	console.log(hasSession, res.locals);
 
 	plugin.session = hasSession;
 
@@ -27,6 +27,8 @@ plugin.addMiddleware = function (req, res, next)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
+		if 
+
 		jwt.verify(req.query.t, 'secret', function (err, user_info)	{
 			if (err)	{
 				return console.log('JWT Verify error: ', err);
@@ -73,8 +75,14 @@ plugin.addMiddleware = function (req, res, next)	{
 
 plugin.doLogout = function (data, callback)	{
 	// console.log('logout: ', data);
+	console.log(data.res);
 
-	callback();
+	if (typeof callback === 'function')	{
+		callback();	
+	} else {
+		return true;
+	}
+	
 }
 
 module.exports = plugin;
