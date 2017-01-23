@@ -84,17 +84,15 @@ plugin.addMiddleware = function (req, res, next)	{
 		return next();
 	} else {
 		console.log('have query data? ', req.query.t);
-
-		plugin.verifyUser(req.query.t, function (uid) {
-			if (uid)	{
+		if (req.query.t) {
+			return next();
+		} else {
+			plugin.verifyUser(req.query.t, function (uid) {
 				console.log('Verified uid: ', uid);
 
-				au.doLogin(req, uid, next);	
-			} else {
-				console.log('No verified uid', uid);
-				return next();
-			}
-		});	
+				au.doLogin(req, uid, next);
+			});		
+		}
 	}	
 };
 
