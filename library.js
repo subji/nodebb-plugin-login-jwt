@@ -27,8 +27,6 @@ plugin.addMiddleware = function (req, res, next)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
-		if 
-
 		jwt.verify(req.query.t, 'secret', function (err, user_info)	{
 			if (err)	{
 				return console.log('JWT Verify error: ', err);
