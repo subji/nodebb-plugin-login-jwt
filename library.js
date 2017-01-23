@@ -12,7 +12,6 @@ var jwt = require('jsonwebtoken');
 var plugin = {};
 
 plugin.init = function (params, callback)	{
-	// console.log('Init: ', params);
 	winston.info('Start community..');
 
 	callback();
@@ -22,7 +21,6 @@ plugin.verifyUser = function (token, callback)	{
 	jwt.verify(token, 'secret', function (err, user_info)	{
 		if (err)	{
 			winston.error(err);
-			// console.log('JWT Verify error: ', err);
 
 			return false;
 		}
@@ -37,7 +35,6 @@ plugin.verifyUser = function (token, callback)	{
 			}
 			
 			if (isExist)	{
-				// console.log('Exist user');
 				winston.info('Exist user ' + isExist);
 				// 존재할 경우 로그인을 실행한다.
 				callback(isExist);
@@ -72,7 +69,6 @@ plugin.verifyUser = function (token, callback)	{
 
 // 이 함수는 NodeBB 에서 어떤 동작 또는 페이지이동 때마다 호출되므로 계속해서 토큰을 받아오고 유저 유효성 검사를 할 것이다.
 // 그러므로 함수 첫줄에 세션 확인을 하는 구문을 만들어 같은 세션일 경우 유저 유효성 검사를 넘어가도록 한다.
-// 로그 처리를 윈스턴을 이용해서 다시 구성해야 할 것 같다.
 plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	// TODO.
