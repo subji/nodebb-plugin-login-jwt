@@ -76,6 +76,8 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이 경우 세션이 변경됨을 확인하고 리프레쉬를 해줘야한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
+	console.log(req.url);
+
 	if (hasSession)	{
 		winston.info('Has Already session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
