@@ -86,6 +86,9 @@ plugin.addMiddleware = function (req, res, next)	{
 		if (!req.query.t) {
 			return next();
 		} else {
+			// TODO.
+			// 현재는 정해진 포맷에 맞춰 유저정보를 받고 입력하지만, 
+			// 추후에는 사용자가 포맷을 정의하고 해당 포맷에 맞게 입력받게 만들어야 한다.
 			plugin.verifyUser(req.query.t, function (uid) {
 				winston.info('User ' + uid + ' is verified');
 
