@@ -73,9 +73,9 @@ plugin.addMiddleware = function (req, res, next)	{
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
 	console.log(Object.keys(req.cookies), Object.keys(req.cookies).length, req.cookies);
-	console.log(req.hasOwnProperty('user'), req.user.hasOwnProperty('uid'));
 
 	if (hasSession)	{
+		console.log(req.hasOwnProperty('user'), req.user.hasOwnProperty('uid'));
 		// console.log('is Session: ', hasSession);
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
