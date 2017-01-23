@@ -83,6 +83,8 @@ plugin.addMiddleware = function (req, res, next)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
+		console.log('have query data? ', req.query.t);
+
 		plugin.verifyUser(req.query.t, function (uid) {
 			if (uid)	{
 				console.log('Verified uid: ', uid);
