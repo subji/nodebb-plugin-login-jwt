@@ -9,25 +9,11 @@ var au = module.parent.require('./controllers/authentication'); // NodeBB / src 
 var winston = require('winston');
 var jwt = require('jsonwebtoken');
 // 모듈 객체.
-var plugin = {
-	settings: {}
-};
-
-plugin.getDateTime = function ()	{
-	var d = new Date(),
-		s = '';
-
-	// Make Date string.
-	s += '' + d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
-	// Make Time string.
-	s += ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-
-	return s;
-}
+var plugin = {};
 
 plugin.init = function (params, callback)	{
 	// console.log('Init: ', params);
-	winston.info(plugin.getDateTime() + ' - Start community..');
+	winston.info('Start community..');
 
 	callback();
 }
@@ -41,18 +27,18 @@ plugin.verifyUser = function (token, callback)	{
 			return false;
 		}
 
-		winston.info(plugin.getDateTime() + ' - User information is ' + user_info);
+		winston.info('User information is ' + user_info);
 		// MongoDB (nodebb) 에서 유저가 존재하는 지 확인한다. 기존에 test 란 유저는 존재했기에 test102로 잠깐 바꿔서 테스트한다.
 		var user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, isExist)	{
 			if (err)	{
-				winston.error(plugin.getDateTime() + ' - During checking user error : ', err);
+				winston.error('During checking user error : ', err);
 
 				return false;
 			}
 			
 			if (isExist)	{
 				// console.log('Exist user');
-				winston.info(plugin.getDateTime() + ' - Exist user ' + isExist);
+				winston.info('Exist user ' + isExist);
 				// 존재할 경우 로그인을 실행한다.
 				callback(isExist);
 			} else {
@@ -67,13 +53,13 @@ plugin.verifyUser = function (token, callback)	{
 				institute_short: user_info.institute_short
 				}, function (err, uid)	{
 					if (err)	{
-						winston.error(plugin.getDateTime() + ' - Creating user ' + test + ' error : ' + err);
+						winston.error('Creating user ' + test + ' error : ' + err);
 						
 						return false;
 					}
 					// TODO.
 					// 이메일이 중복되었을 경우, 에러가 발생하는데 이를 방지할 대책을 세워야 한다.
-					winston.info(plugin.getDateTime() + ' - Success create uid : ', uid);
+					winston.info('Success create uid : ', uid);
 
 					db.setObjectField(user_info.institute_short + ':uid', test, uid);
 
@@ -95,7 +81,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
 	if (hasSession)	{
-		winston.info(plugin.getDateTime() + ' - Has Already session');
+		winston.info('Has Already session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
@@ -105,7 +91,7 @@ plugin.addMiddleware = function (req, res, next)	{
 			return next();
 		} else {
 			plugin.verifyUser(req.query.t, function (uid) {
-				winston.info(plugin.getDateTime() + ' - User ' + uid + ' is verified');
+				winston.info('User ' + uid + ' is verified');
 
 				au.doLogin(req, uid, next);
 			});		
@@ -114,8 +100,8 @@ plugin.addMiddleware = function (req, res, next)	{
 };
 // 로그아웃 함수.
 plugin.doLogout = function (data, callback)	{
-	winston.info(plugin.getDateTime() + ' - Do logout..');
-	
+	winston.info('Do logout..');
+
 	if (typeof callback === 'function')	{
 		callback();	
 	} else {
