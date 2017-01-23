@@ -79,6 +79,7 @@ plugin.addMiddleware = function (req, res, next)	{
 plugin.doLogout = function (data, callback)	{
 	// console.log('logout: ', data);
 	// console.log(data.res, data.res.clearCookie);
+	console.log(data.res.clearCookie)
 
 	if (typeof callback === 'function')	{
 		callback();	
