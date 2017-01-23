@@ -79,6 +79,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	console.log(req.url);
 
 	if (hasSession)	{
+		console.log('Has session : ', req.session);
 		winston.info('Has  Already session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
