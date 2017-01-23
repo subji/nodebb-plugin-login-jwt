@@ -79,7 +79,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	console.log(req.url);
 
 	if (hasSession)	{
-		winston.info('Has Already session');
+		winston.info('Has  Already session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
@@ -88,6 +88,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		if (!req.query.t) {
 			return next();
 		} else {
+			console.log(hasSession)
 			// TODO.
 			// 현재는 정해진 포맷에 맞춰 유저정보를 받고 입력하지만, 
 			// 추후에는 사용자가 포맷을 정의하고 해당 포맷에 맞게 입력받게 만들어야 한다.
