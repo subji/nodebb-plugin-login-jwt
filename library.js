@@ -70,14 +70,14 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	plugin.session = hasSession;
+	console.log(Object.keys(req.cookies), req.cookies)
 
-	if (plugin.session)	{
-		console.log('is Session: ', plugin.session);
+	if (hasSession)	{
+		// console.log('is Session: ', hasSession);
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
-		if (!plugin.session) {
+		if (!hasSession) {
 			plugin.verifyUser(req.query.t, function (uid) {
 				console.log('Verified uid: ', uid);
 				au.doLogin(req, uid, next);
