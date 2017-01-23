@@ -22,7 +22,9 @@ plugin.init = function (params, callback)	{
 plugin.verifyUser = function (token, callback)	{
 	jwt.verify(token, 'secret', function (err, user_info)	{
 		if (err)	{
-			return console.log('JWT Verify error: ', err);
+			console.log('JWT Verify error: ', err);
+
+			return false;
 		}
 
 		console.log('JWT Verify result: ', user_info);
@@ -82,8 +84,14 @@ plugin.addMiddleware = function (req, res, next)	{
 		return next();
 	} else {
 		plugin.verifyUser(req.query.t, function (uid) {
-			console.log('Verified uid: ', uid);
-			au.doLogin(req, uid, next);
+			if (uid)	{
+				console.log('Verified uid: ', uid);
+
+				au.doLogin(req, uid, next);	
+			} else {
+				console.log('No verified uid', uid);
+				return next();
+			}
 		});	
 	}	
 };
