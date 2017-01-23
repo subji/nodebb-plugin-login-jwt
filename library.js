@@ -18,7 +18,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	console.log(hasSession, res.locals);
+	console.log(hasSession, res.locals.fullRefresh);
 
 	plugin.session = hasSession;
 
@@ -27,53 +27,57 @@ plugin.addMiddleware = function (req, res, next)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
-		jwt.verify(req.query.t, 'secret', function (err, user_info)	{
-			if (err)	{
-				return console.log('JWT Verify error: ', err);
-			}
-
-			console.log('JWT Verify result: ', user_info);
-			// MongoDB (nodebb) 에서 유저가 존재하는 지 확인한다.
-			var user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, isExist)	{
+		if (!plugin.session) {
+			jwt.verify(req.query.t, 'secret', function (err, user_info)	{
 				if (err)	{
-					return console.log('User exist error: ', err);
+					return console.log('JWT Verify error: ', err);
 				}
-				
-				if (isExist)	{
-					console.log('Exist user');
-					// 존재할 경우 로그인을 실행한다.
-					au.doLogin(req, isExist, next);
-				} else {
-					// 존재 하지 않을 경우 NodeBB 플러그인의 유저 생성을 사용하여, uid 를 만들고 이를 MongoDB 에 넣는다.
-					// 그리고 로그인을 실행한다.
-					var test = user_info.id.replace('test', 'test102');
 
-					user.create({
-					username: user_info.name,
-					id: test,
-					email: test,
-					institute_short: user_info.institute_short
-					}, function (err, uid)	{
-						if (err)	{
-							return console.log('Create user error: ', err);
-						}
-						// TODO.
-						// 이메일이 중복되었을 경우, 에러가 발생하는데 이를 방지할 대책을 세워야 한다.
-						console.log('Success create uid: ', uid);
+				console.log('JWT Verify result: ', user_info);
+				// MongoDB (nodebb) 에서 유저가 존재하는 지 확인한다.
+				var user_exist = db.getObjectField(user_info.institute_short + ':uid', user_info.id.replace('test', 'test102'), function (err, isExist)	{
+					if (err)	{
+						return console.log('User exist error: ', err);
+					}
+					
+					if (isExist)	{
+						console.log('Exist user');
+						// 존재할 경우 로그인을 실행한다.
+						au.doLogin(req, isExist, next);
+					} else {
+						// 존재 하지 않을 경우 NodeBB 플러그인의 유저 생성을 사용하여, uid 를 만들고 이를 MongoDB 에 넣는다.
+						// 그리고 로그인을 실행한다.
+						var test = user_info.id.replace('test', 'test102');
 
-						db.setObjectField(user_info.institute_short + ':uid', test, uid);
+						user.create({
+						username: user_info.name,
+						id: test,
+						email: test,
+						institute_short: user_info.institute_short
+						}, function (err, uid)	{
+							if (err)	{
+								return console.log('Create user error: ', err);
+							}
+							// TODO.
+							// 이메일이 중복되었을 경우, 에러가 발생하는데 이를 방지할 대책을 세워야 한다.
+							console.log('Success create uid: ', uid);
 
-						au.doLogin(req, uid, next);
-					});
-				}
+							db.setObjectField(user_info.institute_short + ':uid', test, uid);
+
+							au.doLogin(req, uid, next);
+						});
+					}
+				});
 			});
-		});
+		} else {
+			console.log('already logged out')
+		}		
 	}	
 };
 
 plugin.doLogout = function (data, callback)	{
 	// console.log('logout: ', data);
-	console.log(data.res);
+	console.log(data.res, data.res.clearCookie);
 
 	if (typeof callback === 'function')	{
 		callback();	
