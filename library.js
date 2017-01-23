@@ -84,7 +84,7 @@ plugin.addMiddleware = function (req, res, next)	{
 		return next();
 	} else {
 		console.log('have query data? ', req.query.t);
-		if (req.query.t) {
+		if (!req.query.t) {
 			return next();
 		} else {
 			plugin.verifyUser(req.query.t, function (uid) {
