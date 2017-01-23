@@ -73,6 +73,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
 	console.log(Object.keys(req.cookies), Object.keys(req.cookies).length, req.cookies);
+	console.log('it alive session? ', hasSession);
 
 	if (hasSession)	{
 		console.log(req.hasOwnProperty('user'), req.user.hasOwnProperty('uid'));
@@ -80,14 +81,10 @@ plugin.addMiddleware = function (req, res, next)	{
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
-		if (!hasSession) {
-			plugin.verifyUser(req.query.t, function (uid) {
-				console.log('Verified uid: ', uid);
-				au.doLogin(req, uid, next);
-			});
-		} else {
-			console.log('already logged out')
-		}		
+		plugin.verifyUser(req.query.t, function (uid) {
+			console.log('Verified uid: ', uid);
+			au.doLogin(req, uid, next);
+		});	
 	}	
 };
 
@@ -95,6 +92,7 @@ plugin.doLogout = function (data, callback)	{
 	// console.log('logout: ', data);
 	// console.log(data.res, data.res.clearCookie);
 	console.log(data.res.clearCookie)
+	console.log(data.req.user)
 
 	if (typeof callback === 'function')	{
 		callback();	
