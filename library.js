@@ -9,7 +9,9 @@ var au = module.parent.require('./controllers/authentication'); // NodeBB / src 
 var winston = require('winston');
 var jwt = require('jsonwebtoken');
 // 모듈 객체.
-var plugin = {};
+var plugin = {
+	settings: {}
+};
 
 plugin.init = function (params, callback)	{
 	console.log('Init: ', params);
@@ -70,7 +72,8 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	console.log(Object.keys(req.cookies), req.cookies)
+	console.log(Object.keys(req.cookies), Object.keys(req.cookies).length, req.cookies);
+	console.log(req.hasOwnProperty('user'), req.user.hasOwnProperty('uid'));
 
 	if (hasSession)	{
 		// console.log('is Session: ', hasSession);
