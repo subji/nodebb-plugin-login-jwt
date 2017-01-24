@@ -14,6 +14,10 @@ var plugin = {};
 plugin.init = function (params, callback)	{
 	winston.info('Start community..');
 
+	route.get('/community', function ()	{
+		console.log(arguments);
+	});
+
 	callback();
 }
 
@@ -72,7 +76,7 @@ plugin.verifyUser = function (token, callback)	{
 plugin.addMiddleware = function (req, res, next)	{
 	// 이미 있는 세션일 경우 요청 프로퍼티에 user 와 user 안에 uid 가 존재 한다.
 	// TODO.
-	// 로그아웃 후 재로그인한뒤에, 창을 닫고 바이오클라우드에서 다시 커뮤니티로 접속하면 세션관련 리프레쉬가 발생한다.
+	// 로그아웃 후 창을 닫고 바이오클라우드에서 다시 커뮤니티로 접속하면 세션관련 리프레쉬가 발생한다.
 	// 이 경우 세션이 변경됨을 확인하고 리프레쉬를 해줘야한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
@@ -100,9 +104,6 @@ plugin.addMiddleware = function (req, res, next)	{
 // 로그아웃 함수.
 plugin.doLogout = function (data, callback)	{
 	winston.info('Do logout..');
-
-	console.log(data.res.clearCookie)
-	console.log(data.res.cookie())
 
 	if (typeof callback === 'function')	{
 		callback();	
