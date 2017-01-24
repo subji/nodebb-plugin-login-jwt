@@ -102,7 +102,7 @@ plugin.doLogout = function (data, callback)	{
 	winston.info('Do logout..');
 
 	console.log(data.res.clearCookie)
-	console.log(data.res.cookie)
+	console.log(data.res.cookie())
 
 	if (typeof callback === 'function')	{
 		callback();	
