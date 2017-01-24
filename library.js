@@ -14,7 +14,7 @@ var plugin = {};
 plugin.init = function (params, callback)	{
 	winston.info('Start community..');
 
-	route.get('/community', function ()	{
+	router.get('/community', function ()	{
 		console.log(arguments);
 	});
 
