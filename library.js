@@ -12,6 +12,8 @@ var jwt = require('jsonwebtoken');
 var plugin = {};
 
 plugin.init = function (params, callback)	{
+	var router = params.router;
+
 	winston.info('Start community..');
 
 	router.get('/community', function ()	{
