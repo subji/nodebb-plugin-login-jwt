@@ -76,7 +76,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이 경우 세션이 변경됨을 확인하고 리프레쉬를 해줘야한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	console.log(req.url);
+	console.log(req.url, req.session);
 
 	if (hasSession)	{
 		console.log('Has session : ', req.session);
