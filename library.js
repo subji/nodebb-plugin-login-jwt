@@ -76,10 +76,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	// 이 경우 세션이 변경됨을 확인하고 리프레쉬를 해줘야한다.
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
-	console.log(req.url, req.session);
-
 	if (hasSession)	{
-		console.log('Has session : ', req.session);
 		winston.info('Has  Already session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
@@ -89,7 +86,6 @@ plugin.addMiddleware = function (req, res, next)	{
 		if (!req.query.t) {
 			return next();
 		} else {
-			console.log(req.session)
 			// TODO.
 			// 현재는 정해진 포맷에 맞춰 유저정보를 받고 입력하지만, 
 			// 추후에는 사용자가 포맷을 정의하고 해당 포맷에 맞게 입력받게 만들어야 한다.
@@ -104,6 +100,8 @@ plugin.addMiddleware = function (req, res, next)	{
 // 로그아웃 함수.
 plugin.doLogout = function (data, callback)	{
 	winston.info('Do logout..');
+
+	console.log(data.req.session)
 
 	if (typeof callback === 'function')	{
 		callback();	
