@@ -77,7 +77,7 @@ plugin.addMiddleware = function (req, res, next)	{
 	var hasSession = req.hasOwnProperty('user') && req.user.hasOwnProperty('uid') && parseInt(req.user.uid, 10) > 10;
 
 	if (hasSession)	{
-		winston.info('Has  Already session');
+		winston.info('Already have session');
 		// 기존 유저가 접속되어있는 경우 세션확인 후 유저 유효성 검사 없이 진행한다.
 		return next();
 	} else {
@@ -101,7 +101,8 @@ plugin.addMiddleware = function (req, res, next)	{
 plugin.doLogout = function (data, callback)	{
 	winston.info('Do logout..');
 
-	console.log(data.req.session)
+	console.log(data.res.clearCookie)
+	console.log(data.res.cookie)
 
 	if (typeof callback === 'function')	{
 		callback();	
