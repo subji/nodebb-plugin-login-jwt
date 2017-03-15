@@ -34,7 +34,7 @@ plugin.verifyUser = function (token, callback)	{
 		winston.info('User information is ' + user_info);
 		// MongoDB (nodebb) 에서 유저가 존재하는 지 확인한다. 기존에 test 란 유저는 존재했기에 test102로 잠깐 바꿔서 테스트한다.
 		var user_exist = db.getObjectField(user_info.institute_short + 
-			':uid', user_info.id.replace('test', 'test102'), 
+			':uid', user_info.id.replace('test', 'admin'), 
 			function (err, isExist)	{
 			if (err)	{
 				winston.error('During checking user error : ', err);
